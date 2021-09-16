@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import Search from './components/Search'
+import Footer from './components/Footer';
+import Container from "react-bootstrap/Container";
+import Results from './components/Results';
+import './App.css'
+import { useState } from 'react';
 
 function App() {
+
+  const [results, setResults] = useState([])
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Search results={results} setResults={setResults}/>
+
+      <Container fluid id="my-container" className="min-vh-100">
+        <Container>
+
+          {results.map(result => {
+            console.log(result);
+            return <Results key={result.verseId} sura={result.chapter} ayah={result.text}/>
+          })}
+
+        </Container>
+        
+      </Container>
+
+      <Footer/>
     </div>
   );
 }
