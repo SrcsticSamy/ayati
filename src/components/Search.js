@@ -25,7 +25,7 @@ function Search({ results, setResults }) {
     const hits = [];
     
     axios
-      .get(`https://api.quran.com/api/v4/search?q=${searchVal}`)
+      .get(`https://api.quran.com/api/v4/search?q=${searchVal}&language=ur`)
       .then((res) => {
 
         if (res.data.search.total_results === 0 ){
