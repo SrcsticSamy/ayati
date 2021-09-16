@@ -4,63 +4,72 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import FormControl from "react-bootstrap/FormControl";
 
-import search from '../assets/search.svg'
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-function Search({results, setResults}) {
+import search from "../assets/search.svg";
 
-  const [searchVal, setSearchVal] = useState('')
+function Search({ results, setResults }) {
+  const [searchVal, setSearchVal] = useState("");
 
-  useEffect(()=>{
-    if (searchVal===''){
-      setResults([])
+  useEffect(() => {
+    if (searchVal === "") {
+      setResults([]);
     }
-  }, [searchVal, setResults])
+  }, [searchVal]);
 
-  const handleSearchChange = e => setSearchVal(e.target.value)
+  const handleSearchChange = (e) => setSearchVal(e.target.value);
 
   const handleSearch = (e) => {
-    e.preventDefault()
-    setResults([])
-    const hits = []
+    e.preventDefault();
+    const hits = [];
+    
+    axios
+      .get(`https://api.quran.com/api/v4/search?q=${searchVal}`)
+      .then((res) => {
 
-    axios.get(`https://api.quran.com/api/v4/search?q=${searchVal}`)
-    .then( res => {
-      const verses = res.data.search.results
-      verses.forEach( verse => {
-        const verseObj ={
-          text : verse.text,
-          chapterKey : verse.verse_key.split(':')[0],
-          verseId : verse.verse_id
+        if (res.data.search.total_results === 0 ){
+          alert('No results found')
+          setSearchVal('')
+          return null
         }
         
-        hits.push(verseObj)
-      })
+        const verses = res.data.search.results;
+        verses.forEach((verse) => {
+          const verseObj = {
+            text: verse.text,
+            chapterKey: verse.verse_key.split(":")[0],
+            verseId: verse.verse_id,
+          };
 
-      hits.forEach(hit => {
-        axios.get(`https://api.quran.com/api/v4/chapters/${hit.chapterKey}`)
-        .then( res => {
-            console.log(res.data.chapter.name_arabic, hit.chapterKey);
-            hit.chapter = res.data.chapter.name_arabic
-            setResults(results.concat(hits))
+          hits.push(verseObj);
+        });
 
-        })
+        setResults(hits)
+      })  
 
-      })
-      
-        
-      })
-
-  }
+  };
 
   return (
-    <Container id="search-bar" className="py-3 px-4 bg-primary shadow-lg my-3 mx-1 rounded-2 start-50 top-0 translate-middle-x position-fixed">
+    <Container
+      id="search-bar"
+      className="py-3 px-4 shadow bg-primary shadow-lg my-3 mx-1 rounded-pill start-50 top-0 translate-middle-x position-fixed"
+    >
       <Form onSubmit={handleSearch}>
-        <InputGroup className=" mx-auto">
-        <FormControl value={searchVal} onChange={handleSearchChange} className="border border-info" placeholder="قل هو الله احد"/>
-          <Button variant="info" type="submit" className="py-2 px-3"><img src={search} width="20px" alt="search icon"/></Button>
+        <InputGroup className="mx-auto">
+          <FormControl
+            value={searchVal}
+            onChange={handleSearchChange}
+            className="mx-3 border border-info"
+            placeholder="قل هو الله احد"
+          />
+          <Button
+            variant="info"
+            type="submit"
+            className=" rounded-pill py-2 px-3"
+          >
+            <img src={search} width="20px" alt="search icon" />
+          </Button>
         </InputGroup>
       </Form>
     </Container>

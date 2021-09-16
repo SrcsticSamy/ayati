@@ -2,13 +2,16 @@ import Search from './components/Search'
 import Footer from './components/Footer';
 import Container from "react-bootstrap/Container";
 import Results from './components/Results';
-import './App.css'
+import Popup from './components/Popup';
 import { useState } from 'react';
+
+import './App.css'
 
 function App() {
 
   const [results, setResults] = useState([])
-
+  const [ayaInfo, setAyaInfo] = useState({})
+  const [show, setShow] = useState(false);
 
   return (
     <div>
@@ -18,13 +21,14 @@ function App() {
         <Container>
 
           {results.map(result => {
-            console.log(result);
-            return <Results key={result.verseId} sura={result.chapter} ayah={result.text}/>
+            return <Results key={result.verseId} setShow={setShow} setAyaInfo={setAyaInfo} chapterKey={result.chapterKey} ayah={result.text}/>
           })}
 
         </Container>
         
       </Container>
+
+      <Popup show={show} setShow={setShow} ayahObj={ayaInfo}/>
 
       <Footer/>
     </div>
