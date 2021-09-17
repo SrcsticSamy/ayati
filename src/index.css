@@ -1,6 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tajawal&display=swap');
 @import './assets/bootstrap.min.css';
 
 *{
-font-family: 'Cairo', sans-serif;
+    font-family: 'Tajawal', sans-serif;
+    scroll-behavior: smooth;
 }

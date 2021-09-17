@@ -5,12 +5,11 @@ import Button from "react-bootstrap/Button";
 import FormControl from "react-bootstrap/FormControl";
 
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import search from "../assets/search.svg";
 
-function Search({ results, setResults }) {
-  const [searchVal, setSearchVal] = useState("");
+function Search({ setResults, searchVal, setSearchVal }) {
 
   useEffect(() => {
     if (searchVal === "") {
@@ -25,7 +24,7 @@ function Search({ results, setResults }) {
     const hits = [];
     
     axios
-      .get(`https://api.quran.com/api/v4/search?q=${searchVal}&language=ur`)
+      .get(`https://api.quran.com/api/v4/search?q=${searchVal}&s=10&p=1&language=ur`)
       .then((res) => {
 
         if (res.data.search.total_results === 0 ){
@@ -37,7 +36,7 @@ function Search({ results, setResults }) {
         const verses = res.data.search.results;
         verses.forEach((verse) => {
           const verseObj = {
-            text: verse.text,
+            text: verse.highlighted? verse.highlighted : verse.text,
             verseKey: verse.verse_key,
             chapterKey: verse.verse_key.split(":")[0],
             verseId: verse.verse_id,
@@ -54,7 +53,7 @@ function Search({ results, setResults }) {
   return (
     <Container
       id="search-bar"
-      className="py-3 px-3 shadow bg-primary shadow-lg my-3 rounded-pill start-50 top-0 translate-middle-x position-fixed"
+      className="py-3 px-3 text-start shadow bg-primary shadow-lg my-3 rounded-pill start-50 top-0 translate-middle-x position-fixed"
     >
       <Form onSubmit={handleSearch}>
         <InputGroup className="mx-auto">

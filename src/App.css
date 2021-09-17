@@ -1,6 +1,6 @@
 #my-container{
   padding-top: 130px;
-  padding-bottom: 150px;
+  padding-bottom: 100px;
   background-image: url('./assets/bg.svg');
   background-attachment: fixed;
   background-size: cover;
@@ -14,12 +14,18 @@
 
 #myModal{
   direction: rtl;
-  font-family: 'Cairo', sans-serif;
 }
 
 .myCard{
   direction: rtl;
-
-  font-family: 'Cairo', sans-serif;
 }
 
+.results em{
+  color: rgb(212, 158, 19);
+  font-weight: 900;
+}
+
+em{
+  font-style: normal;
+
+}
