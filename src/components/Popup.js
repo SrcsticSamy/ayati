@@ -5,7 +5,6 @@ function Popup({ show, setShow, ayahObj }) {
 
   const handleClose = () => setShow(false);
   
-  console.log(ayahObj.audioUrl, 'here');
   return (
     <div>
       <Modal id="myModal" centered show={show} onHide={handleClose} className="p-0" scrollable>
