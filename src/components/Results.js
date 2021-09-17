@@ -2,31 +2,40 @@ import Card from 'react-bootstrap/Card'
 import Button from "react-bootstrap/Button";
 import axios from "axios";
 
-function Results({ayah, chapterKey, setAyaInfo, setShow}) {
+function Results({ayah, chapterKey, verseKey, setAyaInfo, setShow}) {
 
 
-    const showTafsir = (ayahText, chapterId) => {
+    const showTafsir = (ayahText, chapterId, verseKey) => {
         axios
           .get(`https://api.quran.com/api/v4/chapters/${chapterId}`)
           .then((res) => {
             const chapterName = res.data.chapter.name_arabic;
-            setAyaInfo({
-                chapterName: chapterName,
-                ayahText: ayahText
+            getTafsir(verseKey).then(d =>{
+                setAyaInfo({
+                    chapterName: chapterName,
+                    ayahText: ayahText,
+                    tafsir: d
+                })
             })
+            
           });
         
-        setShow(true)
+
+        const getTafsir = async (key) => {
+            const res = await axios.get(`https://api.quran.com/api/v4/quran/tafsirs/91?verse_key=${key}`)
+            setShow(true)
+            return (res.data.tafsirs[0].text);
+        }
                   
     }
 
     return (
-        <Card border="info" bg="dark" className="myCard shadow rounded text-white p-1 mb-3 fw-bold">
-            <Card.Body className="m-0">
+        <Card border="warning" bg="dark" className="myCard shadow rounded text-white mb-3 lh-lg">
+            <Card.Body>
                 <Card.Text className="fs-5">
                     {ayah}
                 </Card.Text>
-                <Button size="sm" variant="outline-warning" onClick={()=>showTafsir(ayah, chapterKey)}>تفسير</Button>
+                <Button size="sm" variant="outline-warning" onClick={()=>showTafsir(ayah, chapterKey, verseKey)}>تفسير</Button>
 
             </Card.Body>
             

@@ -21,7 +21,7 @@ function App() {
         <Container>
 
           {results.map(result => {
-            return <Results key={result.verseId} setShow={setShow} setAyaInfo={setAyaInfo} chapterKey={result.chapterKey} ayah={result.text}/>
+            return <Results key={result.verseId} setShow={setShow} setAyaInfo={setAyaInfo} verseKey={result.verseKey} chapterKey={result.chapterKey} ayah={result.text}/>
           })}
 
         </Container>

@@ -38,6 +38,7 @@ function Search({ results, setResults }) {
         verses.forEach((verse) => {
           const verseObj = {
             text: verse.text,
+            verseKey: verse.verse_key,
             chapterKey: verse.verse_key.split(":")[0],
             verseId: verse.verse_id,
           };
