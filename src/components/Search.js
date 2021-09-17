@@ -54,14 +54,14 @@ function Search({ results, setResults }) {
   return (
     <Container
       id="search-bar"
-      className="py-3 px-4 shadow bg-primary shadow-lg my-3 mx-1 rounded-pill start-50 top-0 translate-middle-x position-fixed"
+      className="py-3 px-3 shadow bg-primary shadow-lg my-3 rounded-pill start-50 top-0 translate-middle-x position-fixed"
     >
       <Form onSubmit={handleSearch}>
         <InputGroup className="mx-auto">
           <FormControl
             value={searchVal}
             onChange={handleSearchChange}
-            className="mx-3 border border-info"
+            className="mx-2 border border-info"
             placeholder="قل هو الله احد"
           />
           <Button
