@@ -42,6 +42,7 @@ function App() {
             verseKey: verse.verse_key,
             chapterKey: verse.verse_key.split(":")[0],
             verseId: verse.verse_id,
+            textToCopy: verse.text
           };
 
           hits.push(verseObj);
@@ -78,6 +79,7 @@ function App() {
                   verseKey={result.verseKey}
                   chapterKey={result.chapterKey}
                   ayah={result.text}
+                  ayahCopy={result.textToCopy}
                 />
               );
             })}

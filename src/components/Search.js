@@ -41,6 +41,7 @@ function Search({ setResults, searchVal, setSearchVal, setToast }) {
         verses.forEach((verse) => {
           const verseObj = {
             text: verse.highlighted? verse.highlighted : verse.text,
+            textToCopy: verse.text,
             verseKey: verse.verse_key,
             chapterKey: verse.verse_key.split(":")[0],
             verseId: verse.verse_id,

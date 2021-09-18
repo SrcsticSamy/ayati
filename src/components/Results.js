@@ -2,10 +2,8 @@ import Card from 'react-bootstrap/Card'
 import Button from "react-bootstrap/Button";
 import axios from "axios";
 
-function Results({ayah, chapterKey, verseKey, setAyaInfo, setShow}) {
-
-
-    const showTafsir = (ayahText, chapterId, verseKey) => {
+function Results({ayah, chapterKey, verseKey, setAyaInfo, setShow, ayahCopy}) {
+    const showTafsir = (ayahText, chapterId, verseKey, ayahCopy) => {
         axios
           .get(`https://api.quran.com/api/v4/chapters/${chapterId}`)
           .then((res) => {
@@ -17,10 +15,11 @@ function Results({ayah, chapterKey, verseKey, setAyaInfo, setShow}) {
                         chapterName: chapterName,
                         ayahText: ayahText,
                         tafsir: d,
-                        audioUrl: audio
+                        audioUrl: audio,
+                        textToCopy: ayahCopy
                     })
                     setShow(true)
-
+                    
                 })
 
                 
@@ -46,7 +45,7 @@ function Results({ayah, chapterKey, verseKey, setAyaInfo, setShow}) {
             <Card.Body>
                 <Card.Text className="fs-5 fw-bold results" dangerouslySetInnerHTML={{__html: ayah}}>
                 </Card.Text>
-                <Button size="sm" variant="outline-warning" onClick={()=>showTafsir(ayah, chapterKey, verseKey)}>تفسير</Button>
+                <Button size="sm" variant="outline-warning" onClick={()=>showTafsir(ayah, chapterKey, verseKey, ayahCopy)}>تفسير</Button>
 
             </Card.Body>
             
