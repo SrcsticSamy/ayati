@@ -63,7 +63,7 @@ function App() {
 
       <Container fluid id="my-container" className="min-vh-100">
         {results.length === 0 ? (
-          <Container className="text-center mt-5">
+          <Container className="text-center">
             <h3>Search for a specific ayah above.</h3>
 
             <img src={Logo} alt="Quran verse icon" width="100px" />

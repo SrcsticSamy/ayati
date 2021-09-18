@@ -2,7 +2,7 @@ import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 function ToastNotification({ toast, setToast }) {
   return (
-    <ToastContainer className="mt-5 mx-auto">
+    <ToastContainer id="myToast" position="bottom-center" className="mb-5">
       <Toast
         bg={toast.bg}
         onClose={() => setToast({ show: false, message: "" })}
