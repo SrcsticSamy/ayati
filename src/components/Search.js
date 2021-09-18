@@ -9,7 +9,7 @@ import { useEffect } from "react";
 
 import search from "../assets/search.svg";
 
-function Search({ setResults, searchVal, setSearchVal }) {
+function Search({ setResults, searchVal, setSearchVal, setToast }) {
 
   useEffect(() => {
     if (searchVal === "") {
@@ -28,8 +28,12 @@ function Search({ setResults, searchVal, setSearchVal }) {
       .then((res) => {
 
         if (res.data.search.total_results === 0 ){
-          alert('No results found')
           setSearchVal('')
+          setToast({
+            show: true,
+            message: 'No results found.',
+            bg: 'danger'
+          })
           return null
         }
         

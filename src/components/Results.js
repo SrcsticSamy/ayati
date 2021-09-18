@@ -44,7 +44,7 @@ function Results({ayah, chapterKey, verseKey, setAyaInfo, setShow}) {
     return (
         <Card border="warning" bg="dark" className="myCard shadow rounded text-white mb-3 lh-lg">
             <Card.Body>
-                <Card.Text className="fs-5 results" dangerouslySetInnerHTML={{__html: ayah}}>
+                <Card.Text className="fs-5 fw-bold results" dangerouslySetInnerHTML={{__html: ayah}}>
                 </Card.Text>
                 <Button size="sm" variant="outline-warning" onClick={()=>showTafsir(ayah, chapterKey, verseKey)}>تفسير</Button>
 
