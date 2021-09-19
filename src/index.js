@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import ReactGA from 'react-ga';
 
 ReactGA.initialize('UA-174306047-2');
@@ -14,3 +15,6 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+
+serviceWorkerRegistration.register();
