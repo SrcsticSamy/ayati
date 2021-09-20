@@ -52,7 +52,7 @@ function Results({
       className="myCard shadow rounded text-white mb-3 lh-lg"
     >
       <Card.Header className="small text-muted">
-        آية {verseKey.split(":")[0]} من سورة {chapterName}
+        آية {verseKey.split(":")[1]} من سورة {chapterName}
       </Card.Header>
       <Card.Body className="p-2">
         <Card.Text
