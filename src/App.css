@@ -24,11 +24,6 @@
   direction: rtl;
 }
 
-.myCard:first-child::before{
-  content: 'Top Result';
-  display: block;
-}
-
 .results em{
   color: rgb(212, 158, 19);
   font-weight: 900;
