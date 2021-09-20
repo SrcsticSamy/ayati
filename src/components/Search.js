@@ -9,11 +9,13 @@ import { useEffect } from "react";
 
 import search from "../assets/search.svg";
 
-function Search({ setResults, searchVal, setSearchVal, setToast }) {
-
+function Search({ setResults, searchVal, setSearchVal, setAlert, getChapterName, loaded, setLoaded }) {
+  
   useEffect(() => {
     if (searchVal === "") {
       setResults([]);
+      setLoaded(0)
+      setAlert({show: false, message: "", bg: 'light'})
     }
   }, [searchVal]);
 
@@ -22,37 +24,40 @@ function Search({ setResults, searchVal, setSearchVal, setToast }) {
   const handleSearch = (e) => {
     e.preventDefault();
     const hits = [];
-    
-    axios
-      .get(`https://api.quran.com/api/v4/search?q=${searchVal}&s=10&p=1&language=ur`)
-      .then((res) => {
 
-        if (res.data.search.total_results === 0 ){
-          setSearchVal('')
-          setToast({
-            show: true,
-            message: 'No results found.',
-            bg: 'danger'
-          })
-          return null
+    axios
+      .get(
+        `https://api.quran.com/api/v4/search?q=${searchVal}&s=10&p=1&language=ur`
+      )
+      .then((res) => {
+        if (res.data.search.total_results === 0) {
+          setAlert({show: true, message: "No results found, check your spelling and try again.", bg: 'danger'})
+          return null;
         }
-        
+
         const verses = res.data.search.results;
         verses.forEach((verse) => {
-          const verseObj = {
-            text: verse.highlighted? verse.highlighted : verse.text,
-            textToCopy: verse.text,
-            verseKey: verse.verse_key,
-            chapterKey: verse.verse_key.split(":")[0],
-            verseId: verse.verse_id,
-          };
+          getChapterName(verse.verse_key.split(":")[0])
+            .then((d) => {
+              const verseObj = {
+                text: verse.highlighted ? verse.highlighted : verse.text,
+                textToCopy: verse.text,
+                verseKey: verse.verse_key,
+                chapterKey: verse.verse_key.split(":")[0],
+                verseId: verse.verse_id,
+                chapterName: d,
+              };
 
-          hits.push(verseObj);
+              hits.push(verseObj);
+            })
         });
-
         setResults(hits)
-      })  
-
+        setTimeout(() => {
+          setLoaded(loaded+1)
+          console.log(loaded);
+        }, 500);
+      })
+      
   };
 
   return (
@@ -73,7 +78,9 @@ function Search({ setResults, searchVal, setSearchVal, setToast }) {
             type="submit"
             className=" rounded-pill py-2 px-3"
           >
+            
             <img src={search} width="20px" alt="search icon" />
+
           </Button>
         </InputGroup>
       </Form>
