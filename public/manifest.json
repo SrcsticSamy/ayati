@@ -3,7 +3,7 @@
     "background_color": "#8db8ea",
     "display": "standalone",
     "start_url": "/",
-    "name": "Ayati: Get that Ayah you want",
+    "name": "Ayati",
     "short_name": "Ayati",
     "icons": [
         {

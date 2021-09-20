@@ -51,6 +51,11 @@ function Search({
         }
 
         const verses = res.data.search.results;
+        setAlert({
+          show: false,
+          message: "No more results were found.",
+          bg: "warning",
+        });
         verses.forEach((verse) => {
           getChapterName(verse.verse_key.split(":")[0]).then((d) => {
             const verseObj = {
@@ -89,7 +94,7 @@ function Search({
           <Button
             variant="info"
             type="submit"
-            className=" rounded-circle py-2 px-3"
+            className=" rounded-circle p-3"
             onClick={() => {
               setTimeout(() => {
                 setloading(false);
