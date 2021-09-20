@@ -20,8 +20,6 @@ function App() {
   const [page, setPage] = useState(2);
   const [alert, setAlert] = useState({ show: false, message: "", bg: "light" });
 
-  useEffect(() => {}, []);
-
   const getChapterName = async (id) => {
     const res = await axios.get(`https://api.quran.com/api/v4/chapters/${id}`);
     return res.data.chapter.name_arabic;

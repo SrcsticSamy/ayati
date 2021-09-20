@@ -3,14 +3,17 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import FormControl from "react-bootstrap/FormControl";
+import Spinner from 'react-bootstrap/Spinner'
 
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import search from "../assets/search.svg";
 
 function Search({ setResults, searchVal, setSearchVal, setAlert, getChapterName, loaded, setLoaded }) {
   
+  const [loading, setloading] = useState(false)
+
   useEffect(() => {
     if (searchVal === "") {
       setResults([]);
@@ -22,6 +25,7 @@ function Search({ setResults, searchVal, setSearchVal, setAlert, getChapterName,
   const handleSearchChange = (e) => setSearchVal(e.target.value);
 
   const handleSearch = (e) => {
+    setloading(true)
     e.preventDefault();
     const hits = [];
 
@@ -76,10 +80,27 @@ function Search({ setResults, searchVal, setSearchVal, setAlert, getChapterName,
           <Button
             variant="info"
             type="submit"
-            className=" rounded-pill py-2 px-3"
+            className=" rounded-circle p-3"
+
+            onClick={()=>{
+              setTimeout(() => {
+                setloading(false)
+              }, 500);
+            }}
           >
-            
-            <img src={search} width="20px" alt="search icon" />
+
+            {
+              loading?
+              <Spinner
+                as="span"
+                animation="border"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
+              :
+              <img src={search} width="20px" alt="search icon" />
+            }
 
           </Button>
         </InputGroup>
