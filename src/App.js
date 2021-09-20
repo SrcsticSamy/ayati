@@ -20,6 +20,18 @@ function App() {
   const [page, setPage] = useState(2);
   const [alert, setAlert] = useState({ show: false, message: "", bg: "light" });
 
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations()
+          .then(function(registrations) {
+              for(let registration of registrations) {
+                 if(registration.active.scriptURL == 'http://localhost/my-push/myworker.js'){ registration.unregister(); }
+              }
+          });
+  }
+
+  }, [])
+
   const getChapterName = async (id) => {
     const res = await axios.get(`https://api.quran.com/api/v4/chapters/${id}`);
     return res.data.chapter.name_arabic;

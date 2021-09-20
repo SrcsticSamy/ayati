@@ -3,29 +3,36 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import FormControl from "react-bootstrap/FormControl";
-import Spinner from 'react-bootstrap/Spinner'
+import Spinner from "react-bootstrap/Spinner";
 
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 import search from "../assets/search.svg";
 
-function Search({ setResults, searchVal, setSearchVal, setAlert, getChapterName, loaded, setLoaded }) {
-  
-  const [loading, setloading] = useState(false)
+function Search({
+  setResults,
+  searchVal,
+  setSearchVal,
+  setAlert,
+  getChapterName,
+  loaded,
+  setLoaded,
+}) {
+  const [loading, setloading] = useState(false);
 
   useEffect(() => {
     if (searchVal === "") {
       setResults([]);
-      setLoaded(0)
-      setAlert({show: false, message: "", bg: 'light'})
+      setLoaded(0);
+      setAlert({ show: false, message: "", bg: "light" });
     }
   }, [searchVal]);
 
   const handleSearchChange = (e) => setSearchVal(e.target.value);
 
   const handleSearch = (e) => {
-    setloading(true)
+    setloading(true);
     e.preventDefault();
     const hits = [];
 
@@ -35,33 +42,35 @@ function Search({ setResults, searchVal, setSearchVal, setAlert, getChapterName,
       )
       .then((res) => {
         if (res.data.search.total_results === 0) {
-          setAlert({show: true, message: "No results found, check your spelling and try again.", bg: 'danger'})
+          setAlert({
+            show: true,
+            message: "No results found, check your spelling and try again.",
+            bg: "danger",
+          });
           return null;
         }
 
         const verses = res.data.search.results;
         verses.forEach((verse) => {
-          getChapterName(verse.verse_key.split(":")[0])
-            .then((d) => {
-              const verseObj = {
-                text: verse.highlighted ? verse.highlighted : verse.text,
-                textToCopy: verse.text,
-                verseKey: verse.verse_key,
-                chapterKey: verse.verse_key.split(":")[0],
-                verseId: verse.verse_id,
-                chapterName: d,
-              };
+          getChapterName(verse.verse_key.split(":")[0]).then((d) => {
+            const verseObj = {
+              text: verse.highlighted ? verse.highlighted : verse.text,
+              textToCopy: verse.text,
+              verseKey: verse.verse_key,
+              chapterKey: verse.verse_key.split(":")[0],
+              verseId: verse.verse_id,
+              chapterName: d,
+            };
 
-              hits.push(verseObj);
-            })
+            hits.push(verseObj);
+          });
         });
-        setResults(hits)
+        setResults(hits);
         setTimeout(() => {
-          setLoaded(loaded+1)
+          setLoaded(loaded + 1);
           console.log(loaded);
         }, 500);
-      })
-      
+      });
   };
 
   return (
@@ -80,17 +89,14 @@ function Search({ setResults, searchVal, setSearchVal, setAlert, getChapterName,
           <Button
             variant="info"
             type="submit"
-            className=" rounded-circle p-3"
-
-            onClick={()=>{
+            className=" rounded-circle py-2 px-3"
+            onClick={() => {
               setTimeout(() => {
-                setloading(false)
+                setloading(false);
               }, 500);
             }}
           >
-
-            {
-              loading?
+            {loading ? (
               <Spinner
                 as="span"
                 animation="border"
@@ -98,10 +104,9 @@ function Search({ setResults, searchVal, setSearchVal, setAlert, getChapterName,
                 role="status"
                 aria-hidden="true"
               />
-              :
+            ) : (
               <img src={search} width="20px" alt="search icon" />
-            }
-
+            )}
           </Button>
         </InputGroup>
       </Form>
