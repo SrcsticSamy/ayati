@@ -8,20 +8,11 @@
 
 #search-bar{
   width: 90vw;
-  direction: rtl;
   z-index: 1000;
-}
-
-#myModal{
-  direction: rtl;
 }
 
 #myToast{
   z-index: 1000;
-}
-
-.myCard{
-  direction: rtl;
 }
 
 .results em{
@@ -31,5 +22,4 @@
 
 em{
   font-style: normal;
-
 }
