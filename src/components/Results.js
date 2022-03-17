@@ -13,9 +13,10 @@ function Results({
   
   const getTafsir = async (key) => {
     const res = await axios.get(
-      `https://api.quran.com/api/v4/quran/tafsirs/91?verse_key=${key}`
+      `https://api.quran.com/api/v4/quran/tafsirs/92?verse_key=${key}`
     );
-    return res.data.tafsirs[0].text;
+    const tafsir = res.data.tafsirs.find(tafsir=> tafsir.resource_id===16)
+    return tafsir.text;
   };
 
   const getAudio = async (id) => {

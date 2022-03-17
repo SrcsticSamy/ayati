@@ -44,6 +44,7 @@ function Search({
     axios
       .get(`https://api.quran.com/api/v4/search?q=${searchVal}&s=10&p=1`)
       .then((res) => {
+        console.log(res);
         if (res.data.search.total_results === 0) {
           //check if no results are found
           setResults([]);

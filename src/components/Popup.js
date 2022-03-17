@@ -46,7 +46,7 @@ function Popup({ show, setShow, ayahObj }) {
           </audio>
           <hr />
 
-          <q className="fw-bold text-muted">تفسير السعدي</q>
+          <q className="fw-bold text-muted">تفسير الميسر</q>
           <br />
           {ayahObj.tafsir}
         </Modal.Body>
